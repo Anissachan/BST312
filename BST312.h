@@ -369,7 +369,19 @@ template<class ItemType>
 bool BST_312 <ItemType>::isItemInTree(const ItemType& item)
 {
 
-  //YOUR CODE GOES HERE
+    TreeNode *ptr;
+  while(ptr != NULL) {
+      if (ptr->data == item){
+          return true;
+      }
+      else if(ptr->data > item){
+          ptr = ptr -> left;
+      }
+      else if(ptr->data < item){
+          ptr = ptr -> right;
+      }
+  }
+  return false;
 
 }
 #endif
