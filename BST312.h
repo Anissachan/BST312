@@ -289,45 +289,47 @@ bool BST_312 <ItemType>::isFull() const
 
 
 template<class ItemType>
-void BST_312 <ItemType>::insertItem(TreeNode*& t, const ItemType& newItem)
-{
+void BST_312 <ItemType>::insertItem(TreeNode*& t, const ItemType& newItem) {
     TreeNode *temp = new TreeNode;
-    if(t == NULL){
-       temp -> data = newItem;
-       t -> right = NULL;
-       t -> left = NULL;
-       t = temp;
-       delete temp;
+    TreeNode *traverse;
+    if (t == NULL) {
+        temp->data = newItem;
+        temp->right = NULL;
+        temp->left = NULL;
+        t = temp;
+        return;
     }
-    while(t != NULL) {
-        if (t->data > newItem) {
-            if(temp -> right == NULL){
-            temp->data = newItem;
-            t->left = NULL;
-            t->right = NULL;
-            t = temp;
-            }else{
-                temp = temp -> right;
+    traverse = t;
+    while (traverse != NULL) {
+        if (newItem > traverse->data) {
+            if (traverse->right == NULL) {
+                temp->data = newItem;
+                temp->left = NULL;
+                temp->right = NULL;
+                traverse -> right = temp;
+                break;
+            } else {
+                traverse = traverse->right;
             }
 
-        } else if (t->data < newItem) {
-            if(temp ->left == NULL){
-            temp->data = newItem;
-            temp->left = NULL;
-            temp->right = NULL;
-            t = temp;
-        }else{
-            temp = temp -> left;}
+        } else if (newItem < traverse->data) {
+            if (traverse->left == NULL) {
+                temp->data = newItem;
+                temp->left = NULL;
+                temp->right = NULL;
+                traverse -> left = temp;
+                break;
+            } else {
+                traverse = traverse->left;
+            }
         }
     }
-
 }
 
 template<class ItemType>
 void BST_312 <ItemType>::insertItem(const ItemType& newItem)
 {
-    TreeNode *ptr = root;
-    insertItem(ptr, newItem);
+    insertItem(root, newItem);
 }
 
 
@@ -428,7 +430,6 @@ bool BST_312 <ItemType>::isItemInTree(const ItemType& item)
   }
   return false;
 }
+
 #endif
-
-
 
